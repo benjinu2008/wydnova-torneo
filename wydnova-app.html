@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>Wydnova — Promo Ing. Guillermo Villanueva</title>
+<meta name="theme-color" content="#0B0E14" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+  :root { color-scheme: dark; }
+  html, body {
+    background: #0B0E14;
+    color: #E7EAF0;
+    font-family: 'Inter', system-ui, sans-serif;
+    margin: 0; padding: 0;
+  }
+  a { text-decoration: none; color: inherit; }
+  .nums { font-family: 'JetBrains Mono', monospace; font-feature-settings: 'tnum' 1; }
+  .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: #222837; border-radius: 999px; }
+
+  input[type=text], input[type=email], input[type=password], input[type=search] {
+    background: #0B0E14;
+    border: 1px solid #222837;
+    border-radius: .5rem;
+    padding: .55rem .75rem;
+    font-size: .875rem;
+    color: #E7EAF0;
+    width: 100%;
+    font-family: inherit;
+  }
+  input:focus { outline: 2px solid #22C997; outline-offset: 1px; }
+  input::placeholder { color: #8A93A6; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem; justify-content: center;
+    white-space: nowrap; border-radius: .5rem; font-size: .875rem; font-weight: 500;
+    transition: background-color .15s, opacity .15s; height: 2.5rem; padding: 0 1rem;
+    border: none; cursor: pointer; font-family: inherit;
+  }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .btn-primary { background: #22C997; color: #04140F; }
+  .btn-primary:hover:not(:disabled) { background: #1db886; }
+  .btn-secondary { background: #12161F; border: 1px solid #222837; color: #E7EAF0; }
+  .btn-secondary:hover:not(:disabled) { background: #181D29; }
+  .btn-ghost { background: transparent; color: #E7EAF0; border: none; }
+  .btn-ghost:hover:not(:disabled) { background: #181D29; }
+  .btn-danger { background: #E5566B; color: #1A0A0D; }
+  .btn-danger:hover:not(:disabled) { background: #d33f56; }
+  .btn-sm { height: 2rem; padding: 0 .75rem; font-size: .75rem; }
+  .btn-icon { height: 2.5rem; width: 2.5rem; padding: 0; }
+
+  /* Modal */
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center; padding: 1rem;
+  }
+  .modal-box {
+    background: #12161F; border: 1px solid #222837; border-radius: 1rem;
+    padding: 1.5rem; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .modal-box.modal-wide { max-width: 520px; }
+
+  /* Alumno picker grid */
+  .alumno-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: .5rem;
+  }
+  .alumno-btn {
+    display: flex; align-items: center; gap: .5rem; padding: .6rem .75rem;
+    border-radius: .5rem; border: 1px solid #222837; background: #0B0E14;
+    color: #E7EAF0; font-size: .8rem; font-weight: 500; cursor: pointer;
+    transition: all .15s; text-align: left;
+  }
+  .alumno-btn:hover { border-color: #22C997; color: #22C997; background: rgba(34,201,151,.05); }
+  .alumno-btn.tiene-cuenta { border-color: #222837; }
+  .alumno-btn .alumno-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(34,201,151,.15); color: #22C997;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .65rem; font-weight: 700; flex-shrink: 0;
+  }
+  .alumno-btn.tiene-cuenta .alumno-icon { background: rgba(34,201,151,.25); }
+
+  /* Searchbox in picker */
+  .picker-search-wrap { position: relative; margin-bottom: .75rem; }
+  .picker-search-wrap input { padding-left: 2.25rem; }
+  .picker-search-wrap .icon-search {
+    position: absolute; left: .65rem; top: 50%; transform: translateY(-50%);
+    color: #8A93A6; pointer-events: none;
+  }
+
+  /* Fade animation */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  .fade-up { animation: fadeUp .25s ease; }
+
+  /* Stat cards */
+  .stat-card { background: #12161F; border: 1px solid #222837; border-radius: .75rem; padding: 1.25rem; }
+
+  /* Ranking row */
+  .rank-row {
+    display: flex; align-items: center; gap: .75rem; padding: .75rem 1rem;
+    transition: background .15s;
+  }
+  .rank-row:hover { background: #181D29; }
+
+  /* Toast */
+  #toast-container {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
+    display: flex; flex-direction: column; gap: .5rem; pointer-events: none;
+  }
+  .toast-item {
+    background: #12161F; border: 1px solid #222837; border-radius: .5rem;
+    padding: .65rem 1rem; font-size: .8rem; color: #E7EAF0;
+    box-shadow: 0 4px 16px rgba(0,0,0,.4);
+    animation: fadeUp .2s ease; pointer-events: auto;
+  }
+  .toast-item.ok { border-color: #22C997; color: #22C997; }
+  .toast-item.err { border-color: #E5566B; color: #E5566B; }
+
+  /* Nav active */
+  .nav-item-active { background: rgba(34,201,151,.15); color: #22C997 !important; }
+  .nav-item { color: #8A93A6; }
+  .nav-item:hover { background: #181D29; color: #E7EAF0; }
+
+  /* Avatar */
+  .avatar-circle {
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; flex-shrink: 0; overflow: hidden;
+  }
+  .avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Badge */
+  .badge-super { background: rgba(232,163,61,.15); color: #E8A33D; }
+  .badge-admin { background: rgba(34,201,151,.15); color: #22C997; }
+  .badge-user { background: #181D29; color: #8A93A6; border: 1px solid #222837; }
+
+  /* password strength */
+  .pw-bar { height: 4px; border-radius: 2px; transition: width .3s, background .3s; }
+
+  .empty-state {
+    display: flex; flex-direction: column; align-items: center; gap: .5rem;
+    padding: 4rem 1rem; text-align: center;
+  }
+  .empty-icon { background: #181D29; border-radius: 50%; padding: .75rem; margin-bottom: .5rem; }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+<div id="toast-container"></div>
+
+<!-- MODAL CONTAINER -->
+<div id="modal-root"></div>
+
+<script type="module">
+/* =====================================================================
+   WYDNOVA — App de la promo · Vanilla JS + Firebase Modular SDK
+   Firebase: mismo proyecto que el torneo (torneo-wydnova-futbol)
+   Auth: email + password por alumno
+   Todos los datos en Firestore colección "users_promo"
+   ===================================================================== */
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import {
+  getAuth, onAuthStateChanged, signInWithEmailAndPassword,
+  createUserWithEmailAndPassword, signOut, updatePassword,
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+import {
+  getFirestore, doc, setDoc, updateDoc, getDoc, onSnapshot,
+  collection, query, orderBy, serverTimestamp, getDocs,
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+/* ─── FIREBASE CONFIG (misma que el torneo) ─── */
+const firebaseConfig = {
+  apiKey: "AIzaSyB2QHzrNI6odng8k6w3xdIcuOtqyPubTO4",
+  authDomain: "torneo-wydnova-futbol.firebaseapp.com",
+  databaseURL: "https://torneo-wydnova-futbol-default-rtdb.firebaseio.com",
+  projectId: "torneo-wydnova-futbol",
+  storageBucket: "torneo-wydnova-futbol.firebasestorage.app",
+  messagingSenderId: "650939033746",
+  appId: "1:650939033746:web:7004434922b147c58c9e4b",
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const auth  = getAuth(fbApp);
+const db    = getFirestore(fbApp);
+
+/* ─── LISTA DE ALUMNOS ─── */
+const ALUMNOS = [
+  { nombre: "Santiago",   apellido: "Alba" },
+  { nombre: "Genaro",     apellido: "Alcaraz" },
+  { nombre: "Matias",     apellido: "Asís" },
+  { nombre: "Benja",      apellido: "Calderón" },
+  { nombre: "Fran",       apellido: "Dalberti" },
+  { nombre: "Máximo",     apellido: "Dicesare" },
+  { nombre: "Ciro",       apellido: "Escobar" },
+  { nombre: "Rodrigo",    apellido: "Fernandez" },
+  { nombre: "Álvaro",     apellido: "Gatica" },
+  { nombre: "Juan",       apellido: "Gil" },
+  { nombre: "Fran",       apellido: "Luconi" },
+  { nombre: "Rocio",      apellido: "Morales" },
+  { nombre: "Uriel",      apellido: "Moscoso" },
+  { nombre: "Emiliano",   apellido: "Moyano" },
+  { nombre: "Benja",      apellido: "Nuñez",   rol: "super_admin" },
+  { nombre: "Juli",       apellido: "Oyola" },
+  { nombre: "Martín",     apellido: "Pecora" },
+  { nombre: "Santiago",   apellido: "Pereyra" },
+  { nombre: "Alexander",  apellido: "Pizzolatto" },
+  { nombre: "Luca",       apellido: "Rigo" },
+  { nombre: "Benicio",    apellido: "Samaniego" },
+  { nombre: "Sebastián",  apellido: "Sepulveda" },
+  { nombre: "Lucas",      apellido: "Suarez" },
+];
+
+/* slug para email: santiago.alba@wydnova.app */
+function slug(t) {
+  return t.toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "");
+}
+function emailDeAlumno(a) {
+  return `${slug(a.nombre)}.${slug(a.apellido)}@wydnova.app`;
+}
+
+/* ─── ROLES ─── */
+const RANK = { usuario: 0, admin: 1, super_admin: 2 };
+function esAdmin(rol) { return rol === "admin" || rol === "super_admin"; }
+function etiquetaRol(rol) {
+  return { usuario: "Usuario", admin: "Administrador", super_admin: "Super Admin" }[rol] || rol;
+}
+
+/* ─── NAVEGACIÓN ─── */
+const NAV = [
+  { to: "#/",             label: "Inicio",          icon: "layout-dashboard" },
+  { to: "#/participantes",label: "Participantes",    icon: "trophy" },
+  { to: "#/jornadas",     label: "Jornadas",         icon: "calendar-days" },
+  { to: "#/proyectos",    label: "Proyectos",        icon: "boxes" },
+  { to: "#/finanzas",     label: "Finanzas",         icon: "wallet" },
+  { to: "#/galeria",      label: "Galería",          icon: "image" },
+  { to: "#/anuncios",     label: "Anuncios",         icon: "megaphone" },
+];
+const NAV_ADMIN = [
+  { to: "#/admin/usuarios", label: "Administradores", icon: "shield-check" },
+];
+
+/* ─── ESTADO GLOBAL ─── */
+let usuarioFB    = null;  // Firebase Auth user
+let perfilActual = null;  // doc de Firestore
+let unsubPerfil  = null;
+let routeUnsubs  = [];
+let accountsCache = {};   // uid -> true si tiene cuenta
+
+function limpiarUnsubs() { routeUnsubs.forEach(u => u()); routeUnsubs = []; }
+
+/* ─── UTILIDADES UI ─── */
+function esc(s = "") {
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+}
+function refreshIcons() { window.lucide?.createIcons(); }
+
+function toast(msg, tipo = "") {
+  const el = document.createElement("div");
+  el.className = `toast-item ${tipo}`;
+  el.textContent = msg;
+  document.getElementById("toast-container").appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+function avatarHtml(p, size = "h-10 w-10", textSize = "text-xs") {
+  const ini = `${(p?.nombre||"").charAt(0)}${(p?.apellido||"").charAt(0)}`.toUpperCase();
+  if (p?.fotoURL) {
+    return `<span class="avatar-circle ${size} overflow-hidden"><img src="${p.fotoURL}" alt="" /></span>`;
+  }
+  return `<span class="avatar-circle ${size} bg-[#22C997]/15 ${textSize} font-semibold text-[#22C997]">${ini}</span>`;
+}
+
+function badgeHtml(rol, extra = "") {
+  if (!rol) return "";
+  const cls = rol === "super_admin" ? "badge-super" : rol === "admin" ? "badge-admin" : "badge-user";
+  return `<span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${cls} ${extra}">${etiquetaRol(rol)}</span>`;
+}
+
+function statCard(label, val, icon, color = "text-[#E7EAF0]", hint = "") {
+  return `<div class="stat-card">
+    <div class="flex items-start justify-between">
+      <div>
+        <p class="text-xs font-medium text-[#8A93A6]">${label}</p>
+        <p class="mt-2 nums text-2xl font-semibold ${color}">${val}</p>
+        ${hint ? `<p class="mt-1 text-xs text-[#8A93A6]">${hint}</p>` : ""}
+      </div>
+      <div class="rounded-md bg-[#181D29] p-2"><i data-lucide="${icon}" class="h-4 w-4 ${color}"></i></div>
+    </div>
+  </div>`;
+}
+
+function emptyState(icon, title, desc = "") {
+  return `<div class="empty-state">
+    <div class="empty-icon"><i data-lucide="${icon}" class="h-5 w-5 text-[#8A93A6]"></i></div>
+    <p class="text-sm font-medium">${title}</p>
+    ${desc ? `<p class="text-sm text-[#8A93A6] max-w-xs">${desc}</p>` : ""}
+  </div>`;
+}
+
+/* ─── MODAL SISTEMA ─── */
+let modalStack = [];
+function abrirModal(html, onMount) {
+  const root = document.getElementById("modal-root");
+  const id = "modal-" + Date.now();
+  const el = document.createElement("div");
+  el.id = id;
+  el.className = "modal-backdrop fade-up";
+  el.innerHTML = html;
+  el.addEventListener("click", e => {
+    if (e.target === el) cerrarModal(id);
+  });
+  root.appendChild(el);
+  modalStack.push(id);
+  refreshIcons();
+  onMount?.(el);
+  return { id, el, cerrar: () => cerrarModal(id) };
+}
+function cerrarModal(id) {
+  document.getElementById(id)?.remove();
+  modalStack = modalStack.filter(x => x !== id);
+}
+function cerrarTodosModales() {
+  modalStack.forEach(id => document.getElementById(id)?.remove());
+  modalStack = [];
+}
+
+/* ─── MODAL: ELEGIR ALUMNO / CUENTA ─── */
+async function abrirModalCuenta() {
+  // Primero traemos qué alumnos ya tienen cuenta creada en Firestore
+  let cuentas = {};
+  try {
+    const snap = await getDocs(collection(db, "users_promo"));
+    snap.forEach(d => { cuentas[d.id] = d.data(); });
+  } catch(e) {}
+
+  const modal = abrirModal(`
+    <div class="modal-box modal-wide fade-up">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-base font-semibold">¿Quién sos?</h2>
+          <p class="text-xs text-[#8A93A6] mt-0.5">Elegí tu nombre para entrar</p>
+        </div>
+        <button id="btn-cerrar-picker" class="btn btn-ghost btn-icon btn-sm">
+          <i data-lucide="x" class="h-4 w-4"></i>
+        </button>
+      </div>
+      <div class="picker-search-wrap">
+        <i data-lucide="search" class="icon-search h-4 w-4"></i>
+        <input type="search" id="picker-search" placeholder="Buscar tu nombre…" autocomplete="off" />
+      </div>
+      <div id="alumno-grid" class="alumno-grid"></div>
+    </div>
+  `, el => {
+    el.querySelector("#btn-cerrar-picker").onclick = () => cerrarModal(modal.id);
+
+    function renderGrid(filtro = "") {
+      const grid = el.querySelector("#alumno-grid");
+      const lista = ALUMNOS.filter(a =>
+        `${a.nombre} ${a.apellido}`.toLowerCase().includes(filtro.toLowerCase())
+      );
+      grid.innerHTML = lista.map(a => {
+        // buscar si hay doc con email como id
+        const email = emailDeAlumno(a);
+        // Buscamos por campo email en los docs
+        const docData = Object.values(cuentas).find(d => d.email === email);
+        const tieneCuenta = !!docData;
+        const ini = `${a.nombre.charAt(0)}${a.apellido.charAt(0)}`.toUpperCase();
+        return `<button class="alumno-btn${tieneCuenta?" tiene-cuenta":""}" data-email="${email}" data-nombre="${esc(a.nombre)}" data-apellido="${esc(a.apellido)}" data-rol="${a.rol||"usuario"}">
+          <span class="alumno-icon">${ini}</span>
+          <span>${esc(a.nombre)} ${esc(a.apellido)}</span>
+          ${tieneCuenta ? '<i data-lucide="check-circle" class="h-3.5 w-3.5 text-[#22C997] ml-auto shrink-0"></i>' : ""}
+        </button>`;
+      }).join("");
+      refreshIcons();
+
+      grid.querySelectorAll(".alumno-btn").forEach(btn => {
+        btn.onclick = () => {
+          cerrarModal(modal.id);
+          abrirModalAuth(btn.dataset.email, btn.dataset.nombre, btn.dataset.apellido, btn.dataset.rol, cuentas);
+        };
+      });
+    }
+
+    renderGrid();
+    el.querySelector("#picker-search").addEventListener("input", e => renderGrid(e.target.value));
+  });
+}
+
+/* ─── MODAL: LOGIN / REGISTRO ─── */
+function abrirModalAuth(email, nombre, apellido, rol, cuentas) {
+  const tieneCuenta = Object.values(cuentas).some(d => d.email === email);
+
+  const modal = abrirModal(`
+    <div class="modal-box fade-up">
+      <button id="btn-back-picker" class="btn btn-ghost btn-sm mb-3" style="padding-left:0">
+        <i data-lucide="arrow-left" class="h-4 w-4"></i> Volver
+      </button>
+      <div class="flex items-center gap-3 mb-5">
+        <span class="avatar-circle h-12 w-12 bg-[#22C997]/15 text-sm font-semibold text-[#22C997]">
+          ${nombre.charAt(0)}${apellido.charAt(0)}
+        </span>
+        <div>
+          <p class="font-semibold">${esc(nombre)} ${esc(apellido)}</p>
+          <p class="text-xs text-[#8A93A6]">${tieneCuenta ? "Ya tenés cuenta creada" : "Primera vez — creá tu contraseña"}</p>
+        </div>
+      </div>
+
+      ${tieneCuenta ? `
+        <form id="form-login" class="flex flex-col gap-3">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-medium">Contraseña</label>
+            <input id="auth-pw" type="password" placeholder="••••••••" autocomplete="current-password" required />
+          </div>
+          <p id="auth-error" class="hidden text-xs text-[#E5566B]"></p>
+          <button type="submit" id="auth-submit" class="btn btn-primary mt-1">Entrar</button>
+        </form>
+      ` : `
+        <form id="form-register" class="flex flex-col gap-3">
+          <p class="text-xs text-[#8A93A6] bg-[#181D29] rounded-lg p-3 border border-[#222837]">
+            🔑 Elegí una contraseña para tu perfil. Solo vos la vas a saber — ni los admins pueden verla.
+          </p>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-medium">Crear contraseña</label>
+            <input id="auth-pw1" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password" required minlength="6" />
+            <div class="h-1 rounded-full bg-[#222837] mt-1"><div id="pw-strength-bar" class="pw-bar" style="width:0%"></div></div>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-medium">Repetir contraseña</label>
+            <input id="auth-pw2" type="password" placeholder="Repetí la contraseña" autocomplete="new-password" required />
+          </div>
+          <p id="auth-error" class="hidden text-xs text-[#E5566B]"></p>
+          <button type="submit" id="auth-submit" class="btn btn-primary mt-1">Crear mi cuenta</button>
+        </form>
+      `}
+    </div>
+  `, el => {
+    el.querySelector("#btn-back-picker").onclick = () => {
+      cerrarModal(modal.id);
+      abrirModalCuenta();
+    };
+
+    const errorEl = el.querySelector("#auth-error");
+    const submitBtn = el.querySelector("#auth-submit");
+
+    function setError(msg) {
+      errorEl.textContent = msg;
+      errorEl.classList.remove("hidden");
+    }
+    function clearError() { errorEl.classList.add("hidden"); }
+    function setLoading(v) { submitBtn.disabled = v; submitBtn.textContent = v ? "Un momento…" : (tieneCuenta ? "Entrar" : "Crear mi cuenta"); }
+
+    if (!tieneCuenta) {
+      // Password strength meter
+      const pw1 = el.querySelector("#auth-pw1");
+      const bar = el.querySelector("#pw-strength-bar");
+      pw1?.addEventListener("input", () => {
+        const v = pw1.value;
+        const score = [v.length >= 6, /[A-Z]/.test(v), /[0-9]/.test(v), /[^a-zA-Z0-9]/.test(v)].filter(Boolean).length;
+        const widths = ["0%","25%","50%","75%","100%"];
+        const colors = ["","#E5566B","#E8A33D","#22C997","#22C997"];
+        bar.style.width = widths[score];
+        bar.style.background = colors[score];
+      });
+
+      el.querySelector("#form-register").addEventListener("submit", async e => {
+        e.preventDefault();
+        clearError();
+        const pw1v = el.querySelector("#auth-pw1").value;
+        const pw2v = el.querySelector("#auth-pw2").value;
+        if (pw1v.length < 6) { setError("La contraseña debe tener al menos 6 caracteres."); return; }
+        if (pw1v !== pw2v) { setError("Las contraseñas no coinciden."); return; }
+        setLoading(true);
+        try {
+          const cred = await createUserWithEmailAndPassword(auth, email, pw1v);
+          // Crear doc en Firestore
+          await setDoc(doc(db, "users_promo", cred.user.uid), {
+            nombre, apellido, email,
+            rol: rol || "usuario",
+            puntos: 0,
+            activo: true,
+            fotoURL: null,
+            fechaCreacion: serverTimestamp(),
+            ultimoAcceso: serverTimestamp(),
+          });
+          cerrarTodosModales();
+          toast(`¡Bienvenido/a, ${nombre}! 🎉`, "ok");
+        } catch (err) {
+          setLoading(false);
+          if (err.code === "auth/email-already-in-use") {
+            setError("Este perfil ya tiene una cuenta. Volvé atrás y elegís \"Entrar\".");
+          } else {
+            setError("Error al crear cuenta: " + err.message);
+          }
+        }
+      });
+    } else {
+      el.querySelector("#form-login").addEventListener("submit", async e => {
+        e.preventDefault();
+        clearError();
+        const pw = el.querySelector("#auth-pw").value;
+        setLoading(true);
+        try {
+          await signInWithEmailAndPassword(auth, email, pw);
+          cerrarTodosModales();
+          toast(`¡Hola de vuelta, ${nombre}! 👋`, "ok");
+        } catch (err) {
+          setLoading(false);
+          const msgs = {
+            "auth/invalid-credential": "Contraseña incorrecta.",
+            "auth/too-many-requests": "Demasiados intentos. Esperá unos minutos.",
+            "auth/user-disabled": "Esta cuenta fue desactivada.",
+          };
+          setError(msgs[err.code] || "No se pudo iniciar sesión.");
+        }
+      });
+    }
+  });
+}
+
+/* ─── SHELL (sidebar + topbar) ─── */
+function isRouteActive(to, hash) {
+  if (to === "#/") return hash === "#/" || hash === "#" || hash === "";
+  return hash === to || hash.startsWith(to + "/");
+}
+
+function renderShell(vista, hash, titulo) {
+  const navHtml = items => items.map(item => `
+    <a href="${item.to}" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors nav-item ${isRouteActive(item.to, hash) ? "nav-item-active" : ""}">
+      <i data-lucide="${item.icon}" class="h-4 w-4 shrink-0"></i>${item.label}
+    </a>`).join("");
+
+  const adminNav = esAdmin(perfilActual?.rol) ? `
+    <p class="mt-6 px-3 text-[11px] font-semibold uppercase tracking-wide text-[#8A93A6]">Admin</p>
+    <div class="mt-1 flex flex-col gap-1">${navHtml(NAV_ADMIN)}</div>
+  ` : "";
+
+  const sidebarContent = `
+    <div class="mb-4 flex items-center gap-2 px-2">
+      <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[#22C997]/15 text-[#22C997]">
+        <i data-lucide="sparkles" class="h-4 w-4"></i>
+      </div>
+      <div>
+        <p class="text-sm font-semibold leading-none">Wydnova</p>
+        <p class="text-[11px] text-[#8A93A6] leading-none mt-0.5">Promo Ing. G. Villanueva</p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-1">${navHtml(NAV)}</div>
+    ${adminNav}
+  `;
+
+  // Nombre corto para header
+  const nombreCorto = perfilActual ? `${perfilActual.nombre} ${perfilActual.apellido}` : "";
+
+  document.getElementById("app").innerHTML = `
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar desktop -->
+      <aside class="hidden lg:flex lg:flex-col w-64 shrink-0 border-r border-[#222837] bg-[#12161F]/60 p-4">
+        ${sidebarContent}
+      </aside>
+
+      <!-- Mobile overlay sidebar -->
+      <div id="overlay-mobile" class="fixed inset-0 z-40 hidden">
+        <div class="absolute inset-0 bg-black/60" id="overlay-bg"></div>
+        <aside class="absolute left-0 top-0 h-full w-72 overflow-y-auto border-r border-[#222837] bg-[#12161F] p-4">
+          ${sidebarContent}
+        </aside>
+      </div>
+
+      <!-- Main content -->
+      <div class="flex flex-1 flex-col overflow-hidden">
+        <header class="flex h-16 shrink-0 items-center justify-between border-b border-[#222837] bg-[#0B0E14]/80 px-4 backdrop-blur-sm lg:px-6">
+          <div class="flex items-center gap-2">
+            <button id="btn-menu-mobile" class="btn btn-ghost btn-icon lg:hidden">
+              <i data-lucide="menu" class="h-5 w-5"></i>
+            </button>
+            <h1 class="text-base font-semibold lg:text-lg">${titulo}</h1>
+          </div>
+
+          <!-- Cuenta (siempre visible) -->
+          <div class="relative">
+            ${perfilActual ? `
+              <button id="btn-user-menu" class="flex items-center gap-2 rounded-md p-1 hover:bg-[#181D29] transition-colors">
+                ${avatarHtml(perfilActual, "h-9 w-9", "text-xs")}
+                <div class="hidden text-left sm:block">
+                  <p class="text-sm font-medium leading-none">${esc(nombreCorto)}</p>
+                  ${badgeHtml(perfilActual.rol, "mt-1")}
+                </div>
+                <i data-lucide="chevron-down" class="h-3.5 w-3.5 text-[#8A93A6] hidden sm:block"></i>
+              </button>
+              <!-- Dropdown -->
+              <div id="user-dropdown" class="hidden absolute right-0 z-50 mt-2 w-52 rounded-lg border border-[#222837] bg-[#12161F] p-1 shadow-xl shadow-black/40">
+                <div class="px-3 py-2 border-b border-[#222837] mb-1">
+                  <p class="text-sm font-semibold truncate">${esc(nombreCorto)}</p>
+                  ${badgeHtml(perfilActual.rol, "mt-1")}
+                </div>
+                <a href="#/participantes/${perfilActual.id}" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-[#181D29] transition-colors">
+                  <i data-lucide="user" class="h-4 w-4"></i>Mi perfil
+                </a>
+                <button id="btn-cambiar-cuenta" class="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-[#181D29] transition-colors text-left">
+                  <i data-lucide="users" class="h-4 w-4"></i>Cambiar alumno
+                </button>
+                <div class="my-1 h-px bg-[#222837]"></div>
+                <button id="btn-cerrar-sesion" class="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm text-[#E5566B] hover:bg-[#181D29] transition-colors text-left">
+                  <i data-lucide="log-out" class="h-4 w-4"></i>Cerrar sesión
+                </button>
+              </div>
+            ` : `
+              <button id="btn-ingresar" class="btn btn-primary">
+                <i data-lucide="user" class="h-4 w-4"></i>
+                <span>Ingresar</span>
+              </button>
+            `}
+          </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto scrollbar-thin p-4 lg:p-6">
+          <div id="vista-content" class="fade-up">${vista.html}</div>
+        </main>
+      </div>
+    </div>
+  `;
+
+  refreshIcons();
+  vista.mount?.();
+
+  // Evento: menú hamburguesa mobile
+  document.getElementById("btn-menu-mobile")?.addEventListener("click", () => {
+    document.getElementById("overlay-mobile")?.classList.remove("hidden");
+  });
+  document.getElementById("overlay-bg")?.addEventListener("click", () => {
+    document.getElementById("overlay-mobile")?.classList.add("hidden");
+  });
+  // Cerrar overlay al navegar
+  document.querySelectorAll("#overlay-mobile a").forEach(a => {
+    a.addEventListener("click", () => document.getElementById("overlay-mobile")?.classList.add("hidden"));
+  });
+
+  // Dropdown usuario
+  const btnUser = document.getElementById("btn-user-menu");
+  const dropdown = document.getElementById("user-dropdown");
+  if (btnUser && dropdown) {
+    btnUser.addEventListener("click", e => {
+      e.stopPropagation();
+      dropdown.classList.toggle("hidden");
+    });
+    document.addEventListener("click", e => {
+      if (!dropdown.contains(e.target) && e.target !== btnUser) dropdown.classList.add("hidden");
+    }, { once: false });
+  }
+
+  document.getElementById("btn-ingresar")?.addEventListener("click", abrirModalCuenta);
+  document.getElementById("btn-cambiar-cuenta")?.addEventListener("click", () => {
+    dropdown?.classList.add("hidden");
+    abrirModalCuenta();
+  });
+  document.getElementById("btn-cerrar-sesion")?.addEventListener("click", () => signOut(auth));
+}
+
+/* ─── VISTAS ─── */
+
+/* DASHBOARD */
+function vistaDashboard() {
+  const nombre = perfilActual?.nombre || "visitante";
+  const html = `
+    <div class="flex flex-col gap-6">
+      <div>
+        <h2 class="text-xl font-semibold">Hola, ${esc(nombre)} 👋</h2>
+        <p class="text-sm text-[#8A93A6]">Así está el curso hoy.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        ${statCard("Total puntos", '<span id="stat-pts">—</span>', "trophy", "text-[#E8A33D]")}
+        ${statCard("Participantes", '<span id="stat-count">—</span>', "users")}
+        ${statCard("Balance actual", "—", "wallet", "text-[#22C997]", "Fase 3")}
+        ${statCard("Jornadas", "—", "calendar-days", "text-[#E7EAF0]", "Fase 2")}
+      </div>
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <div class="lg:col-span-1 rounded-lg border border-[#222837] bg-[#12161F]">
+          <div class="p-5"><h3 class="text-sm font-medium text-[#8A93A6]">🏆 Top ranking</h3></div>
+          <div id="dash-ranking" class="flex flex-col gap-3 p-5 pt-0">
+            <p class="text-sm text-[#8A93A6]">Cargando…</p>
+          </div>
+        </div>
+        <div class="lg:col-span-2 rounded-lg border border-[#222837] bg-[#12161F]">
+          <div class="p-5"><h3 class="text-sm font-medium text-[#8A93A6]">Próximas jornadas</h3></div>
+          <div class="p-5 pt-0">
+            ${emptyState("calendar-days", "Jornadas — Fase 2", "Se activa pronto. Ahí van a poder confirmar asistencia y ver los puntos.")}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  return {
+    html,
+    mount() {
+      const q = query(collection(db, "users_promo"), orderBy("puntos", "desc"));
+      const unsub = onSnapshot(q, snap => {
+        const users = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        const totalPts = users.reduce((a, u) => a + (u.puntos || 0), 0);
+        const elPts = document.getElementById("stat-pts");
+        if (elPts) elPts.textContent = totalPts;
+        const elCount = document.getElementById("stat-count");
+        if (elCount) elCount.textContent = users.length;
+        const cont = document.getElementById("dash-ranking");
+        if (!cont) return;
+        const top5 = users.slice(0, 5);
+        cont.innerHTML = top5.length ? top5.map((u, i) => `
+          <a href="#/participantes/${u.id}" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <span class="w-4 text-xs font-semibold text-[#8A93A6]">${i + 1}</span>
+            ${avatarHtml(u, "h-8 w-8", "text-[10px]")}
+            <span class="flex-1 truncate text-sm">${esc(u.nombre)} ${esc(u.apellido)}</span>
+            <span class="nums text-sm font-semibold text-[#E8A33D]">${u.puntos || 0} pts</span>
+          </a>`).join("")
+          : `<p class="text-sm text-[#8A93A6]">Todavía no hay puntos.</p>`;
+        refreshIcons();
+      });
+      routeUnsubs.push(unsub);
+    }
+  };
+}
+
+/* PARTICIPANTES */
+function vistaParticipantesList() {
+  const html = `
+    <div class="flex flex-col gap-4">
+      <div>
+        <h2 class="text-xl font-semibold">Ranking y Participantes</h2>
+        <p class="text-sm text-[#8A93A6]">Puntos acumulados por cada integrante del curso.</p>
+      </div>
+      <div class="relative max-w-sm">
+        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#8A93A6]"></i>
+        <input id="busqueda" type="text" placeholder="Buscar por nombre…" style="padding-left:2.25rem" />
+      </div>
+      <div class="rounded-lg border border-[#222837] bg-[#12161F] divide-y divide-[#222837]" id="lista-participantes">
+        <p class="p-6 text-center text-sm text-[#8A93A6]">Cargando…</p>
+      </div>
+    </div>
+  `;
+  return {
+    html,
+    mount() {
+      let todos = [];
+      function pintar() {
+        const term = (document.getElementById("busqueda")?.value || "").toLowerCase();
+        const fil = todos.filter(u => `${u.nombre} ${u.apellido}`.toLowerCase().includes(term));
+        const cont = document.getElementById("lista-participantes");
+        if (!cont) return;
+        cont.innerHTML = fil.length ? fil.map(u => `
+          <a href="#/participantes/${u.id}" class="rank-row">
+            <span class="w-6 shrink-0 text-sm font-semibold text-[#8A93A6]">${todos.indexOf(u) + 1}</span>
+            ${avatarHtml(u, "h-10 w-10")}
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium truncate">${esc(u.nombre)} ${esc(u.apellido)}</p>
+              ${badgeHtml(u.rol, "mt-0.5")}
+            </div>
+            ${!u.activo ? '<span class="text-xs text-[#E5566B] shrink-0">Inactivo</span>' : ""}
+            <span class="nums text-sm font-semibold text-[#E8A33D] shrink-0">${u.puntos || 0} pts</span>
+          </a>`).join("")
+          : `<p class="p-6 text-center text-sm text-[#8A93A6]">No se encontraron participantes.</p>`;
+        refreshIcons();
+      }
+      const q = query(collection(db, "users_promo"), orderBy("puntos", "desc"));
+      const unsub = onSnapshot(q, snap => {
+        todos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        pintar();
+      });
+      routeUnsubs.push(unsub);
+      document.getElementById("busqueda")?.addEventListener("input", pintar);
+    }
+  };
+}
+
+/* PERFIL */
+function vistaPerfilParticipante(uid) {
+  const html = `<div id="perfil-wrap"><p class="text-sm text-[#8A93A6]">Cargando…</p></div>`;
+  return {
+    html,
+    mount() {
+      const refDoc = doc(db, "users_promo", uid);
+      const unsub = onSnapshot(refDoc, snap => {
+        const wrap = document.getElementById("perfil-wrap");
+        if (!wrap) return;
+        if (!snap.exists()) {
+          wrap.innerHTML = emptyState("user-x", "Perfil no encontrado");
+          return;
+        }
+        const p = { id: snap.id, ...snap.data() };
+        const esPropio = perfilActual?.id === uid;
+        const puedeAdmin = esAdmin(perfilActual?.rol);
+
+        wrap.innerHTML = `
+          <div class="flex flex-col gap-4">
+            <button onclick="history.back()" class="btn btn-ghost btn-sm self-start" style="padding-left:0">
+              <i data-lucide="arrow-left" class="h-4 w-4"></i> Volver
+            </button>
+            <div class="rounded-lg border border-[#222837] bg-[#12161F] p-6">
+              <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">
+                ${avatarHtml(p, "h-20 w-20", "text-xl")}
+                <div class="text-center sm:text-left">
+                  <h2 class="text-xl font-semibold">${esc(p.nombre)} ${esc(p.apellido)}</h2>
+                  <div class="flex flex-wrap gap-2 mt-1 justify-center sm:justify-start">
+                    ${badgeHtml(p.rol)}
+                    ${!p.activo ? '<span class="text-xs text-[#E5566B]">Inactivo</span>' : ""}
+                  </div>
+                  ${esPropio && puedeAdmin ? "" : ""}
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              ${statCard("Puntos acumulados", p.puntos || 0, "trophy", "text-[#E8A33D]")}
+              ${statCard("Jornadas realizadas", "—", "calendar-days")}
+              ${statCard("Monto estimado", "—", "wallet", "text-[#22C997]")}
+            </div>
+            ${esPropio ? `
+              <div class="rounded-lg border border-[#222837] bg-[#12161F] p-5">
+                <h3 class="text-sm font-medium mb-3">Cambiar contraseña</h3>
+                <div class="flex flex-col gap-3 max-w-sm">
+                  <input type="password" id="new-pw" placeholder="Nueva contraseña (mín. 6 caracteres)" />
+                  <p id="pw-msg" class="hidden text-xs"></p>
+                  <button id="btn-update-pw" class="btn btn-secondary btn-sm self-start">Actualizar contraseña</button>
+                </div>
+              </div>
+            ` : ""}
+          </div>
+        `;
+        refreshIcons();
+
+        if (esPropio) {
+          document.getElementById("btn-update-pw")?.addEventListener("click", async () => {
+            const pw = document.getElementById("new-pw").value;
+            const msg = document.getElementById("pw-msg");
+            if (pw.length < 6) { msg.textContent = "Mínimo 6 caracteres."; msg.className = "text-xs text-[#E5566B]"; msg.classList.remove("hidden"); return; }
+            try {
+              await updatePassword(auth.currentUser, pw);
+              msg.textContent = "✅ Contraseña actualizada.";
+              msg.className = "text-xs text-[#22C997]";
+              msg.classList.remove("hidden");
+              document.getElementById("new-pw").value = "";
+            } catch(e) {
+              msg.textContent = "Error al actualizar: " + e.message;
+              msg.className = "text-xs text-[#E5566B]";
+              msg.classList.remove("hidden");
+            }
+          });
+        }
+      });
+      routeUnsubs.push(unsub);
+    }
+  };
+}
+
+/* ADMIN USUARIOS */
+function vistaAdminUsuarios() {
+  if (perfilActual?.rol !== "super_admin") {
+    return { html: `<div class="p-8 text-center text-sm text-[#8A93A6]">Sin acceso.</div>` };
+  }
+  const html = `
+    <div class="flex flex-col gap-4">
+      <div>
+        <h2 class="text-xl font-semibold">Administradores</h2>
+        <p class="text-sm text-[#8A93A6]">Gestioná roles y activación de cuentas.</p>
+      </div>
+      <div class="rounded-lg border border-[#222837] bg-[#12161F] divide-y divide-[#222837]" id="admin-lista">
+        <p class="p-6 text-sm text-[#8A93A6]">Cargando…</p>
+      </div>
+    </div>
+  `;
+  return {
+    html,
+    mount() {
+      const q = query(collection(db, "users_promo"), orderBy("nombre"));
+      const unsub = onSnapshot(q, snap => {
+        const usuarios = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        const cont = document.getElementById("admin-lista");
+        if (!cont) return;
+        cont.innerHTML = usuarios.map(u => {
+          const esYo = u.id === perfilActual.id;
+          let btns = "";
+          if (u.rol === "usuario") btns += `<button class="btn btn-secondary btn-sm" onclick="adminAction('hacer-admin','${u.id}')"><i data-lucide="shield-check" class="h-3.5 w-3.5"></i>Hacer admin</button>`;
+          if (u.rol === "admin") btns += `<button class="btn btn-secondary btn-sm" onclick="adminAction('quitar-admin','${u.id}')"><i data-lucide="shield-off" class="h-3.5 w-3.5"></i>Quitar admin</button>`;
+          if (u.rol === "super_admin") btns += `<span class="text-xs text-[#8A93A6]">Super admin</span>`;
+          if (!esYo && u.rol !== "super_admin") {
+            btns += u.activo
+              ? `<button class="btn btn-secondary btn-sm" onclick="adminAction('desactivar','${u.id}')"><i data-lucide="user-x" class="h-3.5 w-3.5"></i>Desactivar</button>`
+              : `<button class="btn btn-primary btn-sm" onclick="adminAction('activar','${u.id}')"><i data-lucide="user-check" class="h-3.5 w-3.5"></i>Activar</button>`;
+          }
+          return `<div class="flex flex-wrap items-center gap-3 p-4">
+            ${avatarHtml(u)}
+            <div class="flex-1 min-w-[140px]">
+              <p class="text-sm font-medium">${esc(u.nombre)} ${esc(u.apellido)} ${esYo ? '<span class="text-xs text-[#8A93A6]">(vos)</span>' : ""}</p>
+              ${badgeHtml(u.rol, "mt-0.5")}
+            </div>
+            ${!u.activo ? '<span class="text-xs text-[#E5566B]">Inactivo</span>' : ""}
+            <div class="flex flex-wrap gap-2">${btns}</div>
+          </div>`;
+        }).join("");
+        refreshIcons();
+      });
+      routeUnsubs.push(unsub);
+    }
+  };
+}
+
+/* Exponer adminAction al scope global */
+window.adminAction = async (action, uid) => {
+  const refDoc = doc(db, "users_promo", uid);
+  const updates = {
+    "hacer-admin": { rol: "admin" },
+    "quitar-admin": { rol: "usuario" },
+    "activar": { activo: true },
+    "desactivar": { activo: false },
+  }[action];
+  if (updates) await updateDoc(refDoc, updates);
+};
+
+/* VISTA PRÓXIMA FASE */
+function vistaProxima(titulo, desc, icon, fase) {
+  return {
+    html: `<div class="flex flex-col gap-4">
+      <div><h2 class="text-xl font-semibold">${titulo}</h2><p class="text-sm text-[#8A93A6]">${desc}</p></div>
+      <div class="rounded-lg border border-[#222837] bg-[#12161F]">
+        ${emptyState(icon, `Módulo disponible en la fase ${fase}`, "Pedile a Claude que continúe con la siguiente fase para construirlo.")}
+      </div>
+    </div>`
+  };
+}
+
+/* VISTA SIN ACCESO */
+function vistaSinAcceso() {
+  return {
+    html: `<div class="flex flex-col items-center justify-center py-24 gap-3 text-center">
+      <div class="rounded-full bg-[#181D29] p-4 mb-2"><i data-lucide="lock" class="h-6 w-6 text-[#8A93A6]"></i></div>
+      <p class="font-semibold">Tenés que iniciar sesión</p>
+      <p class="text-sm text-[#8A93A6]">Hacé clic en "Ingresar" arriba a la derecha para entrar con tu perfil.</p>
+      <button class="btn btn-primary mt-2" onclick="window.abrirCuenta()">
+        <i data-lucide="user" class="h-4 w-4"></i> Ingresar
+      </button>
+    </div>`,
+    mount() { refreshIcons(); }
+  };
+}
+
+window.abrirCuenta = abrirModalCuenta;
+
+/* ─── RUTAS ─── */
+const RUTAS = [
+  { pat: /^(#\/?)?$/, titulo: "Inicio",                   render: vistaDashboard },
+  { pat: /^#\/participantes\/?$/, titulo: "Participantes", render: vistaParticipantesList },
+  { pat: /^#\/participantes\/([^/]+)$/, titulo: "Perfil",  render: m => vistaPerfilParticipante(m[1]) },
+  { pat: /^#\/jornadas\/?$/,  titulo: "Jornadas",     render: () => vistaProxima("Jornadas", "Construcción, ventas, limpieza, decoración y más.", "calendar-days", 2) },
+  { pat: /^#\/proyectos\/?$/, titulo: "Proyectos",    render: () => vistaProxima("Proyectos", "Kioscos, rifas, ventas de pizza y eventos del curso.", "boxes", 2) },
+  { pat: /^#\/finanzas\/?$/,  titulo: "Finanzas",     render: () => vistaProxima("Finanzas", "Ingresos y gastos con movimientos y totales automáticos.", "wallet", 3) },
+  { pat: /^#\/galeria\/?$/,   titulo: "Galería",      render: () => vistaProxima("Galería", "Fotos organizadas por proyecto y jornada.", "image", 4) },
+  { pat: /^#\/anuncios\/?$/,  titulo: "Anuncios",     render: () => vistaProxima("Anuncios", "Novedades publicadas por los administradores.", "megaphone", 4) },
+  { pat: /^#\/admin\/usuarios\/?$/, titulo: "Administradores", render: vistaAdminUsuarios },
+];
+
+function router() {
+  limpiarUnsubs();
+
+  const hash = location.hash || "";
+  for (const r of RUTAS) {
+    const m = hash.match(r.pat);
+    if (m) {
+      // Algunas rutas requieren login
+      if (r.render === vistaDashboard && !perfilActual) {
+        renderShell(vistaSinAcceso(), hash, r.titulo);
+        return;
+      }
+      renderShell(r.render(m), hash, r.titulo);
+      return;
+    }
+  }
+  // 404
+  renderShell({ html: `<div class="py-24 text-center"><p class="text-4xl font-bold text-[#22C997]">404</p><p class="text-sm text-[#8A93A6] mt-2">Página no encontrada.</p><a href="#/" class="btn btn-primary mt-4 inline-flex">Volver</a></div>` }, hash, "No encontrado");
+}
+
+window.addEventListener("hashchange", router);
+
+/* ─── FIREBASE AUTH ─── */
+onAuthStateChanged(auth, async user => {
+  usuarioFB = user;
+
+  if (unsubPerfil) { unsubPerfil(); unsubPerfil = null; }
+  perfilActual = null;
+
+  if (!user) {
+    router();
+    return;
+  }
+
+  const refDoc = doc(db, "users_promo", user.uid);
+  unsubPerfil = onSnapshot(refDoc, snap => {
+    if (snap.exists()) {
+      perfilActual = { id: snap.id, ...snap.data() };
+      // Actualizar ultimo acceso silenciosamente
+      updateDoc(refDoc, { ultimoAcceso: serverTimestamp() }).catch(() => {});
+    } else {
+      perfilActual = null;
+    }
+    router();
+  });
+});
+</script>
+</body>
+</html>
